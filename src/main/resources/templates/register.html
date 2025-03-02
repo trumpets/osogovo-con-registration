@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Room Registration</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <h1 class="my-4">Room Registration</h1>
+
+  <form action="/selectGuests" method="POST">
+    <div class="form-group">
+      <label for="numberOfGuests">Number of Guests:</label>
+      <select name="numberOfGuests" id="numberOfGuests" class="form-control" required>
+        <option th:each="option : ${roomOptions}" th:value="${option}" th:text="${option}"></option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Select Guests</button>
+  </form>
+
+  <div th:if="${numberOfGuests}">
+    <form action="/submit" method="POST">
+      <div class="form-group">
+        <label for="bedConfiguration">Select Bed Configuration:</label>
+        <select name="bedConfiguration" id="bedConfiguration" class="form-control" required>
+          <option th:each="config : ${bedConfigurations}"
+                  th:value="${config}"
+                  th:text="${config}">
+          </option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Book Room</button>
+    </form>
+  </div>
+
+  <div th:if="${errorMessage}" class="alert alert-danger mt-3">
+    <p th:text="${errorMessage}"></p>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
