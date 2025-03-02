@@ -65,12 +65,13 @@ public class RegistrationController {
                                  @RequestParam List<String> lastName,
                                  @RequestParam List<String> email,
                                  @RequestParam List<String> phoneNumber,
+                                 @RequestParam String notes,
                                  Model model) {
 
         // TODO also get the notes for the room, either here or in the previous step
 
         try {
-            Room room = roomService.bookRoom(roomNumber, firstName, lastName, email, phoneNumber);
+            Room room = roomService.bookRoom(roomNumber, firstName, lastName, email, phoneNumber, notes);
 
             model.addAttribute("roomNumber", room.getRoomNumber());
             return "booking-confirmation";

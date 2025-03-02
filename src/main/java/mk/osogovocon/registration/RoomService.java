@@ -33,7 +33,7 @@ public class RoomService {
                          List<String> firstNames,
                          List<String> lastNames,
                          List<String> emails,
-                         List<String> phoneNumbers) {
+                         List<String> phoneNumbers, String notes) {
 
         if (firstNames.size() != lastNames.size() || firstNames.size() != emails.size() || firstNames.size() != phoneNumbers.size()) {
             throw new IllegalArgumentException("All lists must have the same size");
@@ -57,6 +57,7 @@ public class RoomService {
         // Save guests and mark room as booked
         guestRepository.saveAll(guests);
         room.setBooked(true);
+        room.setNotes(notes);
         roomRepository.save(room);
 
         return room;
