@@ -60,7 +60,6 @@ public class RegistrationController {
                                  @RequestParam List<String> email,
                                  @RequestParam List<String> phoneNumber,
                                  Model model) {
-        System.out.println("Room number: " + roomNumber);
         try {
             Room room = roomService.bookRoom(roomNumber, firstName, lastName, email, phoneNumber);
 
