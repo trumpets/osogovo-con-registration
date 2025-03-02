@@ -23,6 +23,7 @@ public class RegistrationController {
     public String showRegistrationForm(Model model) {
         // Fetch all rooms
         List<Room> rooms = roomService.getAllRooms();
+        
         // Get unique occupancies (2, 3, 4, 5)
         Set<Integer> availableOccupancies = rooms.stream()
                 .map(Room::getMaxOccupants)
@@ -38,19 +39,24 @@ public class RegistrationController {
                                    @RequestParam String bedConfiguration,
                                    Model model) {
 
-        // Find a room that matches occupancy and bed config
-        Optional<Room> availableRoom = roomService.getFirstAvailableRoom(numberOfGuests, bedConfiguration);
+        try {
+            // Find a room that matches occupancy and bed config
+            Optional<Room> availableRoom = roomService.getFirstAvailableRoom(numberOfGuests, bedConfiguration);
 
-        if (availableRoom.isEmpty()) {
-            model.addAttribute("errorMessage", "No available rooms with the selected criteria.");
-            return "register"; // Return to the booking page if no rooms are available
+            if (availableRoom.isEmpty()) {
+                model.addAttribute("errorMessage", "No available rooms with the selected criteria.");
+                return "register"; // Return to the booking page if no rooms are available
+            }
+
+            // Pass guest count to the next page
+            model.addAttribute("guestCount", numberOfGuests);
+            model.addAttribute("roomNumber", availableRoom.get().getRoomNumber());
+
+            return "guest-details"; // Forward to guest details input page
+        }  catch (Exception e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "register";
         }
-
-        // Pass guest count to the next page
-        model.addAttribute("guestCount", numberOfGuests);
-        model.addAttribute("roomNumber", availableRoom.get().getRoomNumber());
-
-        return "guest-details"; // Forward to guest details input page
     }
 
     @PostMapping("/confirm")
@@ -65,7 +71,7 @@ public class RegistrationController {
 
             model.addAttribute("roomNumber", room.getRoomNumber());
             return "booking-confirmation";
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
             return "register";
         }
