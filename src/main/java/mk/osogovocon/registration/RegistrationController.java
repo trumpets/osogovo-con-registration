@@ -22,8 +22,8 @@ public class RegistrationController {
     @GetMapping("/")
     public String showRegistrationForm(Model model) {
         // Fetch all rooms
-        List<Room> rooms = roomService.getAllRooms();
-        
+        List<Room> rooms = roomService.getAllAvailableRooms();
+
         // Get unique occupancies (2, 3, 4, 5)
         Set<Integer> availableOccupancies = rooms.stream()
                 .map(Room::getMaxOccupants)
@@ -66,6 +66,9 @@ public class RegistrationController {
                                  @RequestParam List<String> email,
                                  @RequestParam List<String> phoneNumber,
                                  Model model) {
+
+        // TODO also get the notes for the room, either here or in the previous step
+
         try {
             Room room = roomService.bookRoom(roomNumber, firstName, lastName, email, phoneNumber);
 

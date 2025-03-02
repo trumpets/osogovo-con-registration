@@ -3,6 +3,9 @@ package mk.osogovocon.registration;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
 
 @Entity
 public class Room {
@@ -13,6 +16,9 @@ public class Room {
     private String bedConfiguration;
     private boolean isBooked;
     private String notes;
+    // One-to-many relationship with Guest (one room can have many guests)
+    @OneToMany(mappedBy = "room")
+    private List<Guest> guests;
 
     public Room() {
     }
@@ -50,6 +56,10 @@ public class Room {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public List<Guest> getGuests() {
+        return guests;
     }
 
     @Override

@@ -16,8 +16,12 @@ public class RoomService {
     @Autowired
     private GuestRepository guestRepository;
 
-    public List<Room> getAllRooms() {
+    public List<Room> getAllAvailableRooms() {
         return roomRepository.findByIsBookedFalse();
+    }
+
+    public List<Room> getAllRooms() {
+        return roomRepository.findAll();
     }
 
     // Get available rooms based on the number of guests and bed configuration

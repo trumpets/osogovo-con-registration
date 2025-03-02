@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin - Руминг Листа</title>
+    <style>
+        .booked {
+            background-color: lightgreen;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+
+    <h2>Admin - Руминг Листа</h2>
+
+    <button class="btn btn-primary" onclick="window.location.href='/export'">Export to Excel</button>
+    <br />
+    <br />
+    
+    <table>
+        <thead>
+        <tr>
+            <th>Соба бр</th>
+            <th>Име и презиме</th>
+            <th>Email</th>
+            <th>Телефон</th>
+            <th>Лица</th>
+            <th>Тип Соба</th>
+            <th>Notes</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Loop over rooms -->
+        <tr th:each="room : ${rooms}" th:classappend="${room.isBooked() ? 'booked' : ''}">
+            <td th:text="${room.roomNumber}"></td>
+
+            <!-- Concatenate First + Last Name with newline -->
+            <td>
+                <span th:each="guest : ${room.guests}">
+                    <span th:text="${guest.firstName} + ' ' + ${guest.lastName}"></span><br/>
+                </span>
+            </td>
+
+            <!-- Concatenate Emails with newline -->
+            <td>
+                <span th:each="guest : ${room.guests}">
+                    <span th:text="${guest.email}"></span><br/>
+                </span>
+            </td>
+
+            <!-- Concatenate Phone Numbers with newline -->
+            <td>
+                <span th:each="guest : ${room.guests}">
+                    <span th:text="${guest.phoneNumber}"></span><br/>
+                </span>
+            </td>
+
+            <!-- Number of People (maxOccupants) -->
+            <td th:text="${room.maxOccupants}"></td>
+
+            <!-- Bed Configuration (Room Type) -->
+            <td th:text="${room.bedConfiguration}"></td>
+
+            <!-- Notes -->
+            <td th:text="${room.notes}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
