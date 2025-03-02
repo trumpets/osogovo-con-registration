@@ -3,7 +3,9 @@ package mk.osogovocon.registration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoomService {
@@ -11,28 +13,48 @@ public class RoomService {
     @Autowired
     private RoomRepository roomRepository;
 
-    // Get available rooms based on the number of guests
-    public List<Room> getAvailableRooms(int numberOfGuests) {
-        return roomRepository.findByMaxOccupantsAndIsBookedFalse(numberOfGuests);
+    @Autowired
+    private GuestRepository guestRepository;
+
+    public List<Room> getAllRooms() {
+        return roomRepository.findByIsBookedFalse();
     }
 
     // Get available rooms based on the number of guests and bed configuration
-    public List<Room> getAvailableRooms(int numberOfGuests, String bedConfiguration) {
-        return roomRepository.findByMaxOccupantsAndBedConfigurationAndIsBookedFalse(numberOfGuests, bedConfiguration);
+    public Optional<Room> getFirstAvailableRoom(int numberOfGuests, String bedConfiguration) {
+        return roomRepository.findFirstByMaxOccupantsAndBedConfigurationAndIsBookedFalse(numberOfGuests, bedConfiguration);
     }
 
-    // Automatically book the first available room that matches the number of guests and bed configuration
-    public Room bookRoom(int numberOfGuests, String bedConfiguration) {
-        List<Room> availableRooms = getAvailableRooms(numberOfGuests, bedConfiguration);
+    public Room bookRoom(String roomNumber,
+                         List<String> firstNames,
+                         List<String> lastNames,
+                         List<String> emails,
+                         List<String> phoneNumbers) {
 
-        if (availableRooms.isEmpty()) {
-            return null; // No available room found matching the selection
+        if (firstNames.size() != lastNames.size() || firstNames.size() != emails.size() || firstNames.size() != phoneNumbers.size()) {
+            throw new IllegalArgumentException("All lists must have the same size");
         }
 
-        Room bookedRoom = availableRooms.get(0); // Get the first available room
-        bookedRoom.setBooked(true); // Mark the room as booked
-        roomRepository.save(bookedRoom); // Save the updated room to the repository
+        // Fetch the selected room
+        Optional<Room> roomOpt = roomRepository.findByRoomNumber(roomNumber);
+        if (roomOpt.isEmpty()) {
+            throw new RuntimeException("Room not found");
+        }
 
-        return bookedRoom;
+        Room room = roomOpt.get();
+
+        // Create guest objects (assuming you have a Guest entity)
+        List<Guest> guests = new ArrayList<>();
+        for (int i = 0; i < firstNames.size(); i++) {
+            Guest guest = new Guest(firstNames.get(i), lastNames.get(i), emails.get(i), phoneNumbers.get(i), room);
+            guests.add(guest);
+        }
+
+        // Save guests and mark room as booked
+        guestRepository.saveAll(guests);
+        room.setBooked(true);
+        roomRepository.save(room);
+
+        return room;
     }
 }

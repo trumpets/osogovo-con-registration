@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -16,52 +18,57 @@ public class RegistrationController {
     @Autowired
     private RoomService roomService;
 
-    // Show the registration form with available room options
-    @GetMapping("/register")
+    // Method to get available number of guests based on rooms in the database
+    @GetMapping("/")
     public String showRegistrationForm(Model model) {
-        // Prepare the possible guest options (2, 3, 4, 5)
-        int[] roomOptions = {2, 3, 4, 5};
-        model.addAttribute("roomOptions", roomOptions);
+        // Fetch all rooms
+        List<Room> rooms = roomService.getAllRooms();
+        // Get unique occupancies (2, 3, 4, 5)
+        Set<Integer> availableOccupancies = rooms.stream()
+                .map(Room::getMaxOccupants)
+                .collect(Collectors.toSet());
+        model.addAttribute("rooms", rooms);
+        model.addAttribute("availableOccupancies", availableOccupancies);
+
         return "register";
     }
 
-    // Show bed configurations based on the selected number of guests
-    @PostMapping("/selectGuests")
-    public String showAvailableBedConfigs(@RequestParam int numberOfGuests, Model model) {
-        // Get available rooms for the selected number of guests
-        List<Room> availableRooms = roomService.getAvailableRooms(numberOfGuests);
+    @PostMapping("/guests")
+    public String showGuestDetails(@RequestParam int numberOfGuests,
+                                   @RequestParam String bedConfiguration,
+                                   Model model) {
 
-        // Filter out unique bed configurations for the selected number of guests
-        List<String> bedConfigurations = availableRooms.stream()
-                .map(Room::getBedConfiguration)
-                .distinct()
-                .collect(Collectors.toList());
+        // Find a room that matches occupancy and bed config
+        Optional<Room> availableRoom = roomService.getFirstAvailableRoom(numberOfGuests, bedConfiguration);
 
-        model.addAttribute("numberOfGuests", numberOfGuests);
-        model.addAttribute("bedConfigurations", bedConfigurations);
-
-        return "register"; // Return to the same page to allow selection of bed configuration
-    }
-
-    // Submit the registration form and auto-book the room based on selection
-    @PostMapping("/submit")
-    public String submitRegistrationForm(
-            @RequestParam int numberOfGuests,
-            @RequestParam String bedConfiguration,
-            Model model) {
-
-        // Automatically book the first available room that matches the number of guests and bed configuration
-        Room bookedRoom = roomService.bookRoom(numberOfGuests, bedConfiguration);
-
-        if (bookedRoom == null) {
-            model.addAttribute("errorMessage", "No available room matches your selection.");
-            return "register"; // Show error message
+        if (availableRoom.isEmpty()) {
+            model.addAttribute("errorMessage", "No available rooms with the selected criteria.");
+            return "register"; // Return to the booking page if no rooms are available
         }
 
-        model.addAttribute("roomNumber", bookedRoom.getRoomNumber());
-        model.addAttribute("numberOfGuests", numberOfGuests);
-        model.addAttribute("bedConfiguration", bedConfiguration);
+        // Pass guest count to the next page
+        model.addAttribute("guestCount", numberOfGuests);
+        model.addAttribute("roomNumber", availableRoom.get().getRoomNumber());
 
-        return "confirmation"; // Show booking confirmation page
+        return "guest-details"; // Forward to guest details input page
+    }
+
+    @PostMapping("/confirm")
+    public String confirmBooking(@RequestParam String roomNumber,
+                                 @RequestParam List<String> firstName,
+                                 @RequestParam List<String> lastName,
+                                 @RequestParam List<String> email,
+                                 @RequestParam List<String> phoneNumber,
+                                 Model model) {
+        System.out.println("Room number: " + roomNumber);
+        try {
+            Room room = roomService.bookRoom(roomNumber, firstName, lastName, email, phoneNumber);
+
+            model.addAttribute("roomNumber", room.getRoomNumber());
+            return "booking-confirmation";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "register";
+        }
     }
 }

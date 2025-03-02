@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Осогово Кон - Податоци за Гостите</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>Податоци за Гостите</h2>
+
+    <form th:action="@{/confirm}" method="post">
+        <input type="hidden" name="roomNumber" th:value="${roomNumber}">
+        <input type="hidden" name="guestCount" th:value="${guestCount}">
+
+        <div th:each="i : ${#numbers.sequence(1, guestCount)}">
+            <h4>Гостин <span th:text="${i}"></span></h4>
+            <div class="form-group">
+                <label>Име:</label>
+                <input type="text" class="form-control" name="firstName" required>
+            </div>
+            <div class="form-group">
+                <label>Презиме:</label>
+                <input type="text" class="form-control" name="lastName" required>
+            </div>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" class="form-control" name="email" required>
+            </div>
+            <div class="form-group">
+                <label>Телефонски Број:</label>
+                <input type="tel" class="form-control" name="phoneNumber" required>
+            </div>
+            <hr>
+        </div>
+
+        <button type="submit" class="btn btn-success">Потврдете Резервација</button>
+    </form>
+</div>
+
+</body>
+</html>
