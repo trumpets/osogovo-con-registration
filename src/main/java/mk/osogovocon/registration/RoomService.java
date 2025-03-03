@@ -16,6 +16,9 @@ public class RoomService {
     @Autowired
     private GuestRepository guestRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     public List<Room> getAllAvailableRooms() {
         return roomRepository.findByIsBookedFalse();
     }
@@ -60,6 +63,8 @@ public class RoomService {
         room.setBooked(true);
         room.setNotes(notes);
         roomRepository.save(room);
+
+        emailService.sendBookingEmails(guests, room);
 
         return room;
     }

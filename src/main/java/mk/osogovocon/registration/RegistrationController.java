@@ -73,7 +73,7 @@ public class RegistrationController {
         try {
             Room room = roomService.bookRoom(roomNumber, firstName, lastName, email, phoneNumber, notes);
 
-            model.addAttribute("roomNumber", room.getRoomNumber());
+            model.addAttribute("roomNumber", room.getBedConfiguration());
             return "booking-confirmation";
         } catch (Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
