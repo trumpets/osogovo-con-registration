@@ -1,4 +1,4 @@
-package mk.osogovocon.registration;
+package mk.osogovocon.registration.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

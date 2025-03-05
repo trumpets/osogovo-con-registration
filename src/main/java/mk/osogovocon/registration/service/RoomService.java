@@ -1,5 +1,10 @@
-package mk.osogovocon.registration;
+package mk.osogovocon.registration.service;
 
+import mk.osogovocon.registration.model.Guest;
+import mk.osogovocon.registration.model.Room;
+import mk.osogovocon.registration.repository.GuestRepository;
+import mk.osogovocon.registration.repository.RoomRepository;
+import mk.osogovocon.registration.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

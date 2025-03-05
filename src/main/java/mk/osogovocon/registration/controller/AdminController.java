@@ -1,14 +1,16 @@
-package mk.osogovocon.registration;
+package mk.osogovocon.registration.controller;
 
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
+import mk.osogovocon.registration.model.Guest;
+import mk.osogovocon.registration.model.Room;
+import mk.osogovocon.registration.service.RoomService;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;

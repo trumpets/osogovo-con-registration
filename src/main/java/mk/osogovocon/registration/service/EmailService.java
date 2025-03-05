@@ -1,5 +1,7 @@
-package mk.osogovocon.registration;
+package mk.osogovocon.registration.service;
 
+import mk.osogovocon.registration.model.Guest;
+import mk.osogovocon.registration.model.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -11,6 +13,7 @@ import java.util.List;
 @Service
 public class EmailService {
 
+    // 85b85f4cfd2f9d583870661b8b1806b1-e298dd8e-dcb073f5
     @Autowired
     private JavaMailSender emailSender;
 

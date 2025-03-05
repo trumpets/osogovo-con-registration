@@ -1,9 +1,10 @@
-package mk.osogovocon.registration;
+package mk.osogovocon.registration.model;
 
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import mk.osogovocon.registration.model.Guest;
 
 import java.util.List;
 

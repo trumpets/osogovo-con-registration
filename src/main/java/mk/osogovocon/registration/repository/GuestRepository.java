@@ -1,5 +1,6 @@
-package mk.osogovocon.registration;
+package mk.osogovocon.registration.repository;
 
+import mk.osogovocon.registration.model.Guest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
