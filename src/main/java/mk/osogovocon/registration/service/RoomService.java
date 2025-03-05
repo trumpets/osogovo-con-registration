@@ -4,8 +4,6 @@ import mk.osogovocon.registration.model.Guest;
 import mk.osogovocon.registration.model.Room;
 import mk.osogovocon.registration.repository.GuestRepository;
 import mk.osogovocon.registration.repository.RoomRepository;
-import mk.osogovocon.registration.service.EmailService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,14 +13,15 @@ import java.util.Optional;
 @Service
 public class RoomService {
 
-    @Autowired
-    private RoomRepository roomRepository;
+    private final RoomRepository roomRepository;
+    private final GuestRepository guestRepository;
+    private final EmailService emailService;
 
-    @Autowired
-    private GuestRepository guestRepository;
-
-    @Autowired
-    private EmailService emailService;
+    public RoomService(RoomRepository roomRepository, GuestRepository guestRepository, EmailService emailService) {
+        this.roomRepository = roomRepository;
+        this.guestRepository = guestRepository;
+        this.emailService = emailService;
+    }
 
     public List<Room> getAllAvailableRooms() {
         return roomRepository.findByIsBookedFalse();
@@ -69,7 +68,7 @@ public class RoomService {
         room.setNotes(notes);
         roomRepository.save(room);
 
-        emailService.sendBookingEmails(guests, room);
+//        emailService.sendBookingEmails(guests, room);
 
         return room;
     }

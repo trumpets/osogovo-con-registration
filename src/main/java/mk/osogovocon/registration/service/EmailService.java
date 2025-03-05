@@ -2,7 +2,6 @@ package mk.osogovocon.registration.service;
 
 import mk.osogovocon.registration.model.Guest;
 import mk.osogovocon.registration.model.Room;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -14,11 +13,14 @@ import java.util.List;
 public class EmailService {
 
     // 85b85f4cfd2f9d583870661b8b1806b1-e298dd8e-dcb073f5
-    @Autowired
-    private JavaMailSender emailSender;
+    private final JavaMailSender emailSender;
 
-    @Value("${OSOGOVO_EMAIL_USER:your-email@gmail.com}")
-    private String fromEmail;
+    private final String fromEmail;
+
+    public EmailService(JavaMailSender emailSender, @Value("${OSOGOVO_EMAIL_USER:your-email@gmail.com}") String fromEmail) {
+        this.emailSender = emailSender;
+        this.fromEmail = fromEmail;
+    }
 
     public void sendEmail(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();

@@ -2,15 +2,17 @@ package mk.osogovocon.registration.util;
 
 import mk.osogovocon.registration.model.Room;
 import mk.osogovocon.registration.repository.RoomRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RoomDataLoader implements CommandLineRunner {
 
-    @Autowired
-    private RoomRepository roomRepository;
+    private final RoomRepository roomRepository;
+
+    public RoomDataLoader(RoomRepository roomRepository) {
+        this.roomRepository = roomRepository;
+    }
 
     @Override
     public void run(String... args) throws Exception {

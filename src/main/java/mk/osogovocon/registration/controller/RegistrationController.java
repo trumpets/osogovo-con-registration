@@ -2,7 +2,6 @@ package mk.osogovocon.registration.controller;
 
 import mk.osogovocon.registration.model.Room;
 import mk.osogovocon.registration.service.RoomService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +16,11 @@ import java.util.stream.Collectors;
 @Controller
 public class RegistrationController {
 
-    @Autowired
-    private RoomService roomService;
+    private final RoomService roomService;
+
+    public RegistrationController(RoomService roomService) {
+        this.roomService = roomService;
+    }
 
     // Method to get available number of guests based on rooms in the database
     @GetMapping("/")
