@@ -1,15 +1,14 @@
 package mk.osogovocon.registration.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Guest {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String firstName;
     private String lastName;
-    @Id
     private String email;
     private String phoneNumber;
     @ManyToOne
@@ -28,6 +27,10 @@ public class Guest {
     }
 
     // Getters and setters
+    public int getId() {
+        return id;
+    }
+
     public String getFirstName() {
         return firstName;
     }
