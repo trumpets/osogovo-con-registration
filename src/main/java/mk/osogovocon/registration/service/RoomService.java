@@ -68,6 +68,7 @@ public class RoomService {
         room.setNotes(notes);
         roomRepository.save(room);
 
+        // TODO uncomment this when ready
 //        emailService.sendBookingEmails(guests, room);
 
         return room;
