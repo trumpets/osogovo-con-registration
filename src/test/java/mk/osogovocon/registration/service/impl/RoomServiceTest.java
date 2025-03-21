@@ -1,7 +1,6 @@
 package mk.osogovocon.registration.service.impl;
 
 import mk.osogovocon.registration.model.Room;
-import mk.osogovocon.registration.repository.GuestRepository;
 import mk.osogovocon.registration.repository.RoomRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

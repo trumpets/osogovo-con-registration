@@ -74,8 +74,12 @@ public class RoomServiceImpl implements RoomService {
         room.setNotes(notes);
         roomRepository.save(room);
 
-        // TODO uncomment this when ready
-//        emailService.sendBookingEmails(guests, room);
+        try {
+            // Send booking emails
+            emailService.sendBookingEmails(guests, room);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return room;
     }
