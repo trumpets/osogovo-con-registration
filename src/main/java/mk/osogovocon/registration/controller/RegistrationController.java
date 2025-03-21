@@ -23,7 +23,7 @@ public class RegistrationController {
     }
 
     // Method to get available number of guests based on rooms in the database
-    @GetMapping("/")
+    @GetMapping("/booking")
     public String showRegistrationForm(Model model) {
         // Fetch all rooms
         List<Room> rooms = roomService.getAllAvailableRooms();

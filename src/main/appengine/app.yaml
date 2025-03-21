@@ -2,3 +2,5 @@ runtime: java21
 env: standard
 runtime_config:
   jdk: openjdk21
+env_variables:
+  SPRING_PROFILES_ACTIVE: "prod"
