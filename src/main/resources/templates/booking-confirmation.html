@@ -2,15 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Осогово Кон - Потврда за Резервација</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/common.css">
 </head>
-<body>
+<body class="page-centered">
 
-<div class="container mt-5">
-    <h2>Резервацијата е Потврдена!</h2>
-    <p>Вашата соба <strong th:text="${roomNumber}"></strong> беше успешно резервирана.</p>
-    <a href="/booking" class="btn btn-primary">Нова Резервација</a>
-    <a href="/" class="btn btn-primary">Дома</a>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-12">
+            <div class="confirmation-card">
+                <div class="confirmation-header header-success">
+                    <h2 class="mb-0">Резервацијата е Потврдена!</h2>
+                </div>
+                <div class="confirmation-body">
+                    <div class="confirmation-icon mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#28a745" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </div>
+                    <p class="lead">Вашата соба <span class="room-number" th:text="${roomNumber}"></span> беше успешно резервирана.</p>
+                    <p>Ќе добиете потврда на вашиот email. Се гледаме на Осогово Кон! #hype</p>
+
+                    <div class="action-buttons">
+                        <a href="/booking" class="btn btn-primary">Нова Резервација</a>
+                        <a href="/" class="btn btn-outline-primary">Дома</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

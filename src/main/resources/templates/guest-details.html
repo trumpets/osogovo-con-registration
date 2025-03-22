@@ -2,47 +2,70 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Осогово Кон - Податоци за Гостите</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/common.css">
 </head>
 <body>
 
-<div class="container mt-5">
-    <h2>Податоци за Гостите</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">Податоци за Гостите</h2>
 
-    <form th:action="@{/confirm}" method="post">
-        <input type="hidden" name="roomNumber" th:value="${roomNumber}">
-        <input type="hidden" name="guestCount" th:value="${guestCount}">
+            <form th:action="@{/confirm}" method="post">
+                <input type="hidden" name="roomNumber" th:value="${roomNumber}">
+                <input type="hidden" name="guestCount" th:value="${guestCount}">
 
-        <div th:each="i : ${#numbers.sequence(1, guestCount)}">
-            <h4>Гостин <span th:text="${i}"></span></h4>
-            <div class="form-group">
-                <label>Име:</label>
-                <input type="text" class="form-control" name="firstName" required>
-            </div>
-            <div class="form-group">
-                <label>Презиме:</label>
-                <input type="text" class="form-control" name="lastName" required>
-            </div>
-            <div class="form-group">
-                <label>Email:</label>
-                <input type="email" class="form-control" name="email" required>
-            </div>
-            <div class="form-group">
-                <label>Телефонски Број:</label>
-                <input type="tel" class="form-control" name="phoneNumber" required>
-            </div>
-            <hr>
+                <div th:each="i : ${#numbers.sequence(1, guestCount)}" class="guest-card">
+                    <div class="guest-header">
+                        <h4 class="m-0">Гостин <span th:text="${i}"></span></h4>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Име:</label>
+                                <input type="text" class="form-control" name="firstName" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Презиме:</label>
+                                <input type="text" class="form-control" name="lastName" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Email:</label>
+                                <input type="email" class="form-control" name="email" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Телефонски Број:</label>
+                                <input type="tel" class="form-control" name="phoneNumber" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-card mb-4">
+                    <div class="card-body">
+                        <div class="form-group mb-0">
+                            <label>Било каква забелешка за собата (пр. детско креветче, на фактура за...):</label>
+                            <textarea class="form-control" name="notes" rows="4"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success btn-lg btn-block">Потврдете Резервација</button>
+            </form>
         </div>
-
-        <div class="form-group">
-            <label>Било каква забелешка за собата (пр. детско креветче, на фактура за...):</label>
-            <textarea class="form-control" name="notes" rows="4"></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-success">Потврдете Резервација</button>
-    </form>
-    <br />
-    <br />
+    </div>
 </div>
 
 </body>

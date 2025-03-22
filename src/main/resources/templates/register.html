@@ -1,82 +1,109 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-  <title>Осогово Кон - Резервација на Соба</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Осогово Кон - Резервација на Соба</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/common.css">
 </head>
 <body>
 
-<div class="container mt-5">
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">Резервација на Соба</h2>
 
-  <h2>Резервација на Соба</h2>
+            <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+                <span th:text="${errorMessage}"></span>
+            </div>
 
-  <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
-    <span th:text="${errorMessage}"></span>
-  </div>
+            <form th:action="@{/guests}" method="post" class="mb-4">
+                <div class="custom-card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">ЦЕНА:</h5>
+                        <ul class="price-list pl-3">
+                            <li><b>Цената за ноќевање со појадок и вечера е 30 еур по лице (60 еур за цел викенд).</b>
+                            </li>
+                            <li>Во цената е вклучено користење на базен и спа.</li>
+                            <li>Во цените е пресметан ДДВ, но не и туристичка такса која се плаќа посебно.</li>
+                            <li>Плаќањето се врши во хотелот, при Check-Out, во кеш или платежна картичка.</li>
+                        </ul>
 
-  <form th:action="@{/guests}" method="post">
-    <div class="mt-3">
-      <h5>ЦЕНА:</h5>
-      <ul>
-        <li><b>Цената за ноќевање со појадок и вечера е 30 еур по лице (60 еур за цел викенд).</b></li>
-        <li>Во цената е вклучено користење на базен и спа.</li>
-        <li>Во цените е пресметан ДДВ, но не и туристичка такса која се плаќа посебно.</li>
-        <li>Плаќањето се врши во хотелот, при Check-Out, во кеш или платежна картичка.</li>
-      </ul>
+                        <h5 class="card-title mt-3">СОБИ:</h5>
+                        <ul class="room-list pl-3">
+                            <li>Има разни конфигурации на кревети, погледнете ги на <a
+                                    href="https://hotelarena.mk/rooms.html" target="_blank">веб страната на хотелот</a>
+                                ако ве интересира повеќе.
+                            </li>
+                            <li>Секоја соба има своја приватна бања.</li>
+                        </ul>
 
-      <h5>СОБИ:</h5>
-        <ul>
-            <li>Има разни конфигурации на кревети, погледнете ги на <a href="https://hotelarena.mk/rooms.html" target="_blank">веб страната на хотелот</a> на хотелот ако ве интересира повеќе.</li>
-            <li>Секоја соба има своја приватна бања.</li>
-        </ul>
+                        <h5 class="card-title mt-3">ОТКАЗНА ПОЛИТИКА:</h5>
+                        <ul class="policy-list pl-3">
+                            <li>За откажување на резервацијата во периодот од моментот на резервирање до 14 дена пред
+                                пристигнување на гостинот Хотелот го задржува правото на наплата на пенали во износ од
+                                30% од резервацијата.
+                            </li>
+                            <li>Во случај на недоаѓање на гостинот или откажување на резервацијата во период од 14 до 0
+                                денови пред пристигнување на гостинот Хотелот го задржува правото на наплата на пенали
+                                во износ од 100% од резервацијата.
+                            </li>
+                            <li>Во случај на недоаѓање (no show) или предвремено заминување на гостинот, на Клиентот ќе
+                                му биде наплатен вкупниот износ за сместување за NO SHOW / предвремено заминување на
+                                гостинот.
+                            </li>
+                            <li>Во случај на виша сила (временска непогода од поголем размер, штрајк, војна, епидемија,
+                                смрт, терористички напад, затварање на аеродром, железнички и автобуски станици, или
+                                слични непредвидливи околности), кои би довеле до недоаѓање на гостинот, на Клиентот
+                                нема да му биде наплатен т.н. NO SHOW.
+                            </li>
+                        </ul>
 
-      <h5>ОТКАЗНА ПОЛИТИКА:</h5>
-      <ul>
-        <li>За откажување на резервацијата во периодот од моментот на резервирање до 14 дена пред пристигнување на гостинот Хотелот го задржува правото на наплата на пенали во износ од 30% од резервацијата.</li>
-        <li>Во случај на недоаѓање на гостинот или откажување на резервацијата во период од 14 до 0 денови пред пристигнување на гостинот Хотелот го задржува правото на наплата на пенали во износ од 100% од резервацијата.</li>
-        <li>Во случај на недоаѓање (no show) или предвремено заминување на гостинот, на Клиентот ќе му биде наплатен вкупниот износ за сместување за NO SHOW / предвремено заминување на гостинот.</li>
-        <li>Во случај на виша сила (временска непогода од поголем размер, штрајк, војна, епидемија, смрт, терористички напад, затварање на аеродром, железнички и автобуски станици, или слични непредвидливи околности), кои би довеле до недоаѓање на гостинот, на Клиентот нема да му биде наплатен т.н. NO SHOW.</li>
-      </ul>
+                        <div class="form-check mt-3">
+                            <input type="checkbox" class="form-check-input" id="termsCheckbox">
+                            <label class="form-check-label" for="termsCheckbox">Ги прифаќам горенаведените
+                                услови!</label>
+                        </div>
+                    </div>
+                </div>
 
-      <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="termsCheckbox">
-        <label class="form-check-label" for="termsCheckbox">Ги прифаќам горенаведените услови!</label>
-      </div>
+                <div class="custom-card mb-4">
+                    <div class="card-body">
+                        <!-- Occupancy Dropdown -->
+                        <div class="form-group">
+                            <label for="numberOfGuests">Број на гости:</label>
+                            <select class="form-control" id="numberOfGuests" name="numberOfGuests">
+                                <option value="">Одберете број на гости</option>
+                                <th:block th:each="occupancy : ${availableOccupancies}">
+                                    <option th:value="${occupancy}" th:text="${occupancy}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+
+                        <!-- Bed Configuration Dropdown (Initially Disabled) -->
+                        <div class="form-group">
+                            <label for="bedConfiguration">Тип на кревети:</label>
+                            <select class="form-control" id="bedConfiguration" name="bedConfiguration" disabled>
+                                <option value="">Одберете тип на кревети</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg btn-block" id="bookRoomButton" disabled>Потврдете го
+                    изборот на соба
+                </button>
+            </form>
+        </div>
     </div>
-
-    <br />
-
-    <!-- Occupancy Dropdown -->
-    <div class="form-group">
-      <label for="numberOfGuests">Број на гости:</label>
-      <select class="form-control" id="numberOfGuests" name="numberOfGuests">
-        <option value="">Одберете број на гости</option>
-        <th:block th:each="occupancy : ${availableOccupancies}">
-          <option th:value="${occupancy}" th:text="${occupancy}"></option>
-        </th:block>
-      </select>
-    </div>
-
-    <!-- Bed Configuration Dropdown (Initially Disabled) -->
-    <div class="form-group">
-      <label for="bedConfiguration">Тип на кревети:</label>
-      <select class="form-control" id="bedConfiguration" name="bedConfiguration" disabled>
-        <option value="">Одберете тип на кревети</option>
-      </select>
-    </div>
-
-    <br />
-
-    <button type="submit" class="btn btn-primary" id="bookRoomButton" disabled>Потврдете го изборот на соба</button>
-  </form>
 </div>
 
 <script th:inline="javascript">
-  // Get all rooms data passed from the controller
-  const rooms = /*[[${rooms}]]*/ [];
+    // Get all rooms data passed from the controller
+    const rooms = /*[[${rooms}]]*/ [];
 
-  // Function to update the bed configuration dropdown based on selected occupancy
-  function updateBedConfigDropdown(occupancy) {
+    // Function to update the bed configuration dropdown based on selected occupancy
+    function updateBedConfigDropdown(occupancy) {
       const bedConfigDropdown = document.getElementById('bedConfiguration');
       // Clear the current options
       bedConfigDropdown.innerHTML = "<option value=''>Одберете тип на кревети</option>";
@@ -84,51 +111,51 @@
       // Find unique bed configurations for the selected occupancy
       const bedConfigs = new Set();
       rooms.forEach(room => {
-          if (room.maxOccupants === occupancy) {
-              bedConfigs.add(room.bedConfiguration);
-          }
+        if (room.maxOccupants === occupancy) {
+          bedConfigs.add(room.bedConfiguration);
+        }
       });
 
       // Populate the bed configuration dropdown with unique options
       bedConfigs.forEach(bedConfig => {
-          const option = document.createElement("option");
-          option.value = bedConfig;
-          option.textContent = bedConfig;
-          bedConfigDropdown.appendChild(option);
+        const option = document.createElement("option");
+        option.value = bedConfig;
+        option.textContent = bedConfig;
+        bedConfigDropdown.appendChild(option);
       });
 
       // Enable the bed configuration dropdown
       bedConfigDropdown.disabled = false;
-  }
+    }
 
-  // Function to check if the book button should be enabled
-  function checkButtonStatus() {
+    // Function to check if the book button should be enabled
+    function checkButtonStatus() {
       const numberOfGuests = document.getElementById('numberOfGuests').value;
       const bedConfiguration = document.getElementById('bedConfiguration').value;
       const termsChecked = document.getElementById('termsCheckbox').checked;
       const bookRoomButton = document.getElementById('bookRoomButton');
 
       bookRoomButton.disabled = !(numberOfGuests && bedConfiguration && termsChecked);
-  }
+    }
 
-  // Listen for changes in the number of guests dropdown
-  document.getElementById('numberOfGuests').addEventListener('change', function () {
+    // Listen for changes in the number of guests dropdown
+    document.getElementById('numberOfGuests').addEventListener('change', function () {
       const occupancy = parseInt(this.value);
       if (occupancy) {
-          updateBedConfigDropdown(occupancy);
+        updateBedConfigDropdown(occupancy);
       } else {
-          // If no selection, reset bed config dropdown
-          document.getElementById('bedConfiguration').disabled = true;
+        // If no selection, reset bed config dropdown
+        document.getElementById('bedConfiguration').disabled = true;
       }
       // Always check button status after any change
       checkButtonStatus();
-  });
+    });
 
-  document.getElementById('bedConfiguration').addEventListener('change', checkButtonStatus);
-  document.getElementById('termsCheckbox').addEventListener('change', checkButtonStatus);
+    document.getElementById('bedConfiguration').addEventListener('change', checkButtonStatus);
+    document.getElementById('termsCheckbox').addEventListener('change', checkButtonStatus);
 
-  // Initial call to disable bed config dropdown until an occupancy is selected
-  checkButtonStatus();
+    // Initial call to disable bed config dropdown until an occupancy is selected
+    checkButtonStatus();
 </script>
 
 </body>

@@ -4,58 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Грешка - Нешто се случи</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRAB6a6qS8gN5pz5fWZpZ6lX4IepRSt7tB1E+KjQHnsOPlow+f2K8Sft3" crossorigin="anonymous">
-    <style>
-        body {
-            background: #f4f7fc;
-            color: #333;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        .error-container {
-            margin-top: 100px;
-        }
-        .alert {
-            background-color: #ffcccc;
-            border-color: #ff0000;
-        }
-        .alert h4 {
-            font-size: 1.8rem;
-            color: #d10000;
-        }
-        .alert p {
-            font-size: 1.2rem;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #004085;
-        }
-        .btn-link {
-            color: #007bff;
-            font-weight: bold;
-        }
-        .btn-link:hover {
-            color: #0056b3;
-        }
-        .email-link {
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRAB6a6qS8gN5pz5fWZpZ6lX4IepRSt7tB1E+KjQHnsOPlow+f2K8Sft3" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/common.css">
 </head>
-<body>
-<div class="container text-center error-container mt-5">
-    <div class="alert alert-danger shadow-lg rounded">
-        <h4 class="alert-heading">Опа! Нешто се случи.</h4>
-        <p>Додека го обработувавме Вашато барање, се појави грешка. Ве молиме обидете се повторно подоцна.</p>
-        <hr>
-        <p>Ако проблемот продолжи, контактирајте не за помош.</p>
-        <a href="/" class="btn btn-primary btn-lg mb-4">Обиди се повторно</a>
-        <br>
-        <p>Или, можете да <a href="mailto:ivo.neskovic@gmail.com" class="btn btn-link email-link">испратите е-маил</a> за да пријавите проблем.</p>
+<body class="page-centered">
+<div class="error-container">
+    <div class="error-card custom-card">
+        <div class="error-header header-danger">
+            <div class="error-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                </svg>
+            </div>
+            <h4>Опа! Нешто се случи.</h4>
+        </div>
+
+        <div class="error-body">
+            <p class="error-message">Додека го обработувавме Вашато барање, се појави грешка. Ве молиме обидете се
+                повторно подоцна.</p>
+
+            <a href="/" class="btn btn-danger btn-lg retry-btn">
+                Обиди се повторно
+            </a>
+
+            <div class="contact-section">
+                <p class="mb-2">Ако проблемот продолжи, контактирајте не за помош:</p>
+                <a href="mailto:ivo.neskovic@gmail.com" class="email-link">
+                    ivo.neskovic@gmail.com
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 </body>
